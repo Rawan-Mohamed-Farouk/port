@@ -425,7 +425,7 @@ function Skills() {
 // ── Gallery ────────────────────────────────────────────────────
 function Gallery() {
   const photos = [
-    { src: '/photos/arab-league-podium.jpeg', caption: 'Speaking at the Arab League', span: 1 },
+    { src: '/photos/arab-league-podium.jpeg', caption: 'Speaking at Orientation day at ANU ', span: 1 },
     { src: '/photos/arab-league-hall.jpeg', caption: 'Arab League Main Hall', span: 1 },
     { src: '/photos/speaking-is.jpeg', caption: 'Presenting at Alexandria National University', span: 1 },
     { src: '/photos/cert-brightengine.jpeg', caption: 'BrightEngine Certificate of Completion', span: 1 },
