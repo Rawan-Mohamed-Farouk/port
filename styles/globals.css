@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #F5F0E8;
+  color: #0D0D0D;
+  font-family: 'DM Sans', sans-serif;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: #C9A84C;
+  color: #0D0D0D;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: #F5F0E8;
+}
+::-webkit-scrollbar-thumb {
+  background: #C9A84C;
+  border-radius: 2px;
+}
+
+.grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+.section-animate {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.section-animate.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.line-decoration::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 2px;
+  background: #C9A84C;
+  margin-top: 12px;
+}
+
+.photo-hover {
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+.photo-hover:hover {
+  transform: scale(1.03) rotate(-0.5deg);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+}
+
+.tag {
+  display: inline-block;
+  padding: 3px 10px;
+  border: 1px solid #C9A84C;
+  border-radius: 2px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: #C9A84C;
+  letter-spacing: 0.05em;
+}
+
+.skill-pill {
+  display: inline-block;
+  padding: 5px 14px;
+  background: rgba(201,168,76,0.1);
+  border: 1px solid rgba(201,168,76,0.3);
+  border-radius: 2px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: #2A2D35;
+  transition: all 0.2s ease;
+}
+.skill-pill:hover {
+  background: rgba(201,168,76,0.2);
+  border-color: #C9A84C;
+}
