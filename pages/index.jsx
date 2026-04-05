@@ -427,7 +427,6 @@ function Gallery() {
   const photos = [
     { src: '/photos/arab-league-podium.jpeg', caption: 'Speaking at the Arab League', span: 1 },
     { src: '/photos/arab-league-hall.jpeg', caption: 'Arab League Main Hall', span: 1 },
-    { src: '/photos/arab-league-outside.jpeg', caption: 'Arab League HQ, Cairo', span: 2 },
     { src: '/photos/speaking-is.jpeg', caption: 'Presenting at Alexandria National University', span: 1 },
     { src: '/photos/cert-brightengine.jpeg', caption: 'BrightEngine Certificate of Completion', span: 1 },
     { src: '/photos/group.jpeg', caption: 'ACFC Community Event', span: 1 },
