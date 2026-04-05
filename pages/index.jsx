@@ -1,8 +1,7 @@
 import Head from 'next/head'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Image from 'next/image'
 
-// ── Intersection Observer hook ─────────────────────────────────
 function useReveal() {
   useEffect(() => {
     const els = document.querySelectorAll('.section-animate')
@@ -15,10 +14,10 @@ function useReveal() {
   }, [])
 }
 
-// ── Nav ────────────────────────────────────────────────────────
 function Nav() {
   const [scrolled, setScrolled] = useState(false)
-  const [open, setOpen] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
+  const links = ['About', 'Experience', 'Projects', 'Gallery', 'Contact']
 
   useEffect(() => {
     const h = () => setScrolled(window.scrollY > 50)
@@ -26,153 +25,99 @@ function Nav() {
     return () => window.removeEventListener('scroll', h)
   }, [])
 
-  const links = ['About', 'Experience', 'Projects', 'Gallery', 'Contact']
-
   return (
-    <nav style={{
-      position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50,
-      padding: '16px 40px',
-      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-      backdropFilter: scrolled ? 'blur(12px)' : 'none',
-      background: scrolled ? 'rgba(245,240,232,0.85)' : 'transparent',
-      borderBottom: scrolled ? '1px solid rgba(201,168,76,0.2)' : 'none',
-      transition: 'all 0.3s ease',
-    }}>
-      <span style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700, fontSize: 18, letterSpacing: '-0.02em' }}>
-        RF
-      </span>
-      {/* Desktop links */}
-      <div style={{ display: 'flex', gap: 32 }} className="hidden-mobile">
-        {links.map(l => (
-          <a key={l} href={`#${l.toLowerCase()}`} style={{
-            fontFamily: "'DM Sans', sans-serif", fontSize: 13, letterSpacing: '0.08em',
-            textTransform: 'uppercase', color: '#0D0D0D', textDecoration: 'none',
-            opacity: 0.7, transition: 'opacity 0.2s',
-          }}
-            onMouseEnter={e => e.target.style.opacity = 1}
-            onMouseLeave={e => e.target.style.opacity = 0.7}
-          >{l}</a>
-        ))}
-      </div>
-      <a href="mailto:rawanmohamedf@gmail.com" style={{
-        fontFamily: "'JetBrains Mono', monospace", fontSize: 11,
-        border: '1px solid #C9A84C', padding: '6px 16px', color: '#C9A84C',
-        textDecoration: 'none', letterSpacing: '0.06em', borderRadius: 2,
-        transition: 'all 0.2s ease',
-      }}
-        onMouseEnter={e => { e.target.style.background = '#C9A84C'; e.target.style.color = '#0D0D0D' }}
-        onMouseLeave={e => { e.target.style.background = 'transparent'; e.target.style.color = '#C9A84C' }}
-      >
-        Hire Me
-      </a>
-    </nav>
+    <>
+      <nav style={{
+        position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50,
+        padding: '16px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        backdropFilter: scrolled ? 'blur(12px)' : 'none',
+        background: scrolled ? 'rgba(245,240,232,0.92)' : 'transparent',
+        borderBottom: scrolled ? '1px solid rgba(201,168,76,0.2)' : 'none',
+        transition: 'all 0.3s ease',
+      }}>
+        <span style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700, fontSize: 18 }}>RF</span>
+        <div className="nav-links">
+          {links.map(l => (
+            <a key={l} href={`#${l.toLowerCase()}`} style={{
+              fontFamily: "'DM Sans', sans-serif", fontSize: 13, letterSpacing: '0.08em',
+              textTransform: 'uppercase', color: '#0D0D0D', textDecoration: 'none', opacity: 0.7,
+            }}>{l}</a>
+          ))}
+        </div>
+        <a href="mailto:rawanmohamedf@gmail.com" className="hire-btn" style={{
+          fontFamily: "'JetBrains Mono', monospace", fontSize: 11,
+          border: '1px solid #C9A84C', padding: '6px 16px', color: '#C9A84C',
+          textDecoration: 'none', letterSpacing: '0.06em', borderRadius: 2,
+        }}>Hire Me</a>
+        <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)} style={{
+          background: 'none', border: 'none', cursor: 'pointer', padding: 4,
+          display: 'flex', flexDirection: 'column', gap: 5,
+        }}>
+          <span style={{ display: 'block', width: 24, height: 2, background: '#0D0D0D', transition: 'all 0.3s', transform: menuOpen ? 'rotate(45deg) translate(5px,5px)' : 'none' }} />
+          <span style={{ display: 'block', width: 24, height: 2, background: '#0D0D0D', transition: 'all 0.3s', opacity: menuOpen ? 0 : 1 }} />
+          <span style={{ display: 'block', width: 24, height: 2, background: '#0D0D0D', transition: 'all 0.3s', transform: menuOpen ? 'rotate(-45deg) translate(5px,-5px)' : 'none' }} />
+        </button>
+      </nav>
+      {menuOpen && (
+        <div style={{
+          position: 'fixed', inset: 0, zIndex: 40,
+          background: 'rgba(245,240,232,0.98)', backdropFilter: 'blur(12px)',
+          display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 32,
+        }}>
+          {links.map(l => (
+            <a key={l} href={`#${l.toLowerCase()}`} onClick={() => setMenuOpen(false)} style={{
+              fontFamily: "'Playfair Display', serif", fontSize: 32, fontWeight: 700,
+              color: '#0D0D0D', textDecoration: 'none',
+            }}>{l}</a>
+          ))}
+          <a href="mailto:rawanmohamedf@gmail.com" style={{
+            marginTop: 16, fontFamily: "'JetBrains Mono'", fontSize: 12,
+            border: '1px solid #C9A84C', padding: '10px 28px', color: '#C9A84C',
+            textDecoration: 'none', borderRadius: 2,
+          }}>Hire Me</a>
+        </div>
+      )}
+    </>
   )
 }
 
-// ── Hero ───────────────────────────────────────────────────────
 function Hero() {
   return (
-    <section id="about" style={{
-      minHeight: '100vh', display: 'flex', alignItems: 'center',
-      padding: '120px 40px 80px',
-      position: 'relative', overflow: 'hidden',
-    }}>
-      {/* Background decoration */}
-      <div style={{
-        position: 'absolute', top: -100, right: -100,
-        width: 500, height: 500, borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%)',
-        pointerEvents: 'none',
-      }} />
-      <div style={{
-        position: 'absolute', bottom: 0, left: '40%',
-        width: 1, height: '60%',
-        background: 'linear-gradient(to bottom, transparent, rgba(201,168,76,0.3), transparent)',
-      }} />
-
-      <div style={{ maxWidth: 1200, margin: '0 auto', width: '100%', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'center' }}>
+    <section id="about" style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', padding: '100px 24px 60px', position: 'relative', overflow: 'hidden' }}>
+      <div style={{ position: 'absolute', top: -100, right: -100, width: 400, height: 400, borderRadius: '50%', background: 'radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%)', pointerEvents: 'none' }} />
+      <div className="hero-grid" style={{ maxWidth: 1200, margin: '0 auto', width: '100%' }}>
         <div>
-          <div className="tag" style={{ marginBottom: 24 }}>AI / ML Engineer</div>
-          <h1 style={{
-            fontFamily: "'Playfair Display', serif",
-            fontSize: 'clamp(48px, 6vw, 80px)',
-            fontWeight: 700, lineHeight: 1.05,
-            letterSpacing: '-0.03em', marginBottom: 24,
-          }}>
-            Rawan<br />
-            <em style={{ color: '#C9A84C', fontStyle: 'italic' }}>Mohamed</em><br />
-            Farouk
+          <div className="tag" style={{ marginBottom: 20 }}>AI / ML Engineer</div>
+          <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(42px, 7vw, 80px)', fontWeight: 700, lineHeight: 1.05, letterSpacing: '-0.03em', marginBottom: 20 }}>
+            Rawan<br /><em style={{ color: '#C9A84C', fontStyle: 'italic' }}>Mohamed</em><br />Farouk
           </h1>
-          <p style={{
-            fontSize: 16, lineHeight: 1.8, color: '#2A2D35', maxWidth: 440,
-            marginBottom: 40, fontWeight: 300,
-          }}>
-            Computer Science student specializing in Intelligent Systems & AI at Alexandria National University.
-            Building production-grade ML pipelines, computer vision systems, and AI-powered applications.
+          <p style={{ fontSize: 15, lineHeight: 1.8, color: '#2A2D35', maxWidth: 440, marginBottom: 32, fontWeight: 300 }}>
+            Computer Science student specializing in Intelligent Systems & AI at Alexandria National University. Building production-grade ML pipelines, computer vision systems, and AI-powered applications.
           </p>
-          <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
-            <a href="#experience" style={{
-              background: '#0D0D0D', color: '#F5F0E8',
-              padding: '12px 28px', textDecoration: 'none',
-              fontFamily: "'DM Sans'", fontSize: 13, letterSpacing: '0.06em',
-              textTransform: 'uppercase', borderRadius: 2,
-              transition: 'transform 0.2s, box-shadow 0.2s',
-            }}
-              onMouseEnter={e => { e.target.style.transform = 'translateY(-2px)'; e.target.style.boxShadow = '0 8px 24px rgba(0,0,0,0.15)' }}
-              onMouseLeave={e => { e.target.style.transform = 'translateY(0)'; e.target.style.boxShadow = 'none' }}
-            >
-              View Work
-            </a>
-            <a href="https://www.linkedin.com/in/rawan-mohamed" target="_blank" rel="noreferrer" style={{
-              border: '1px solid #0D0D0D', color: '#0D0D0D',
-              padding: '12px 28px', textDecoration: 'none',
-              fontFamily: "'DM Sans'", fontSize: 13, letterSpacing: '0.06em',
-              textTransform: 'uppercase', borderRadius: 2,
-              transition: 'all 0.2s',
-            }}
-              onMouseEnter={e => { e.target.style.background = '#0D0D0D'; e.target.style.color = '#F5F0E8' }}
-              onMouseLeave={e => { e.target.style.background = 'transparent'; e.target.style.color = '#0D0D0D' }}
-            >
-              LinkedIn
-            </a>
+          <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+            <a href="#experience" style={{ background: '#0D0D0D', color: '#F5F0E8', padding: '12px 24px', textDecoration: 'none', fontFamily: "'DM Sans'", fontSize: 13, letterSpacing: '0.06em', textTransform: 'uppercase', borderRadius: 2 }}>View Work</a>
+            <a href="https://www.linkedin.com/in/rawan-mohamed" target="_blank" rel="noreferrer" style={{ border: '1px solid #0D0D0D', color: '#0D0D0D', padding: '12px 24px', textDecoration: 'none', fontFamily: "'DM Sans'", fontSize: 13, letterSpacing: '0.06em', textTransform: 'uppercase', borderRadius: 2 }}>LinkedIn</a>
           </div>
-
-          {/* Stats */}
-          <div style={{ display: 'flex', gap: 40, marginTop: 60, paddingTop: 40, borderTop: '1px solid rgba(0,0,0,0.08)' }}>
-            {[['3.3', 'GPA'], ['4+', 'Internships'], ['10+', 'Projects'], ['200+', 'Club Members']].map(([n, l]) => (
+          <div className="stats-row" style={{ marginTop: 48, paddingTop: 32, borderTop: '1px solid rgba(0,0,0,0.08)' }}>
+            {[['3.3','GPA'],['4+','Internships'],['10+','Projects'],['200+','Club Members']].map(([n,l]) => (
               <div key={l}>
-                <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 28, fontWeight: 700, color: '#C9A84C' }}>{n}</div>
-                <div style={{ fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#6B7280', marginTop: 2 }}>{l}</div>
+                <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 26, fontWeight: 700, color: '#C9A84C' }}>{n}</div>
+                <div style={{ fontSize: 10, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#6B7280', marginTop: 2 }}>{l}</div>
               </div>
             ))}
           </div>
         </div>
-
-        {/* Photo collage */}
-        <div style={{ position: 'relative', height: 560 }}>
-          <div className="photo-hover" style={{
-            position: 'absolute', top: 0, right: 0, width: 300, height: 380,
-            borderRadius: 4, overflow: 'hidden',
-            boxShadow: '0 24px 64px rgba(0,0,0,0.15)',
-          }}>
+        <div className="hero-photos" style={{ position: 'relative', height: 480 }}>
+          <div className="photo-hover" style={{ position: 'absolute', top: 0, right: 0, width: '75%', height: '70%', borderRadius: 4, overflow: 'hidden', boxShadow: '0 24px 64px rgba(0,0,0,0.15)' }}>
             <Image src="/photos/arab-league-hall.jpeg" alt="Arab League Hall" fill style={{ objectFit: 'cover' }} />
           </div>
-          <div className="photo-hover" style={{
-            position: 'absolute', bottom: 0, left: 0, width: 240, height: 300,
-            borderRadius: 4, overflow: 'hidden',
-            boxShadow: '0 24px 64px rgba(0,0,0,0.15)',
-            border: '4px solid #F5F0E8',
-          }}>
+          <div className="photo-hover" style={{ position: 'absolute', bottom: 0, left: 0, width: '55%', height: '55%', borderRadius: 4, overflow: 'hidden', border: '4px solid #F5F0E8', boxShadow: '0 24px 64px rgba(0,0,0,0.15)' }}>
             <Image src="/photos/brightskies.jpeg" alt="BrightSkies" fill style={{ objectFit: 'cover', objectPosition: 'top' }} />
           </div>
-          <div style={{
-            position: 'absolute', bottom: 80, right: 30,
-            background: '#0D0D0D', color: '#F5F0E8',
-            padding: '12px 16px', borderRadius: 4, zIndex: 10,
-          }}>
-            <div style={{ fontFamily: "'JetBrains Mono'", fontSize: 10, color: '#C9A84C', letterSpacing: '0.1em' }}>CURRENTLY</div>
-            <div style={{ fontFamily: "'DM Sans'", fontSize: 12, marginTop: 4 }}>CS @ ANU, Egypt</div>
-            <div style={{ fontFamily: "'DM Sans'", fontSize: 11, opacity: 0.5, marginTop: 2 }}>Expected 2026</div>
+          <div style={{ position: 'absolute', bottom: '18%', right: '4%', background: '#0D0D0D', color: '#F5F0E8', padding: '10px 14px', borderRadius: 4, zIndex: 10 }}>
+            <div style={{ fontFamily: "'JetBrains Mono'", fontSize: 9, color: '#C9A84C', letterSpacing: '0.1em' }}>CURRENTLY</div>
+            <div style={{ fontFamily: "'DM Sans'", fontSize: 11, marginTop: 3 }}>CS @ ANU, Egypt</div>
+            <div style={{ fontFamily: "'DM Sans'", fontSize: 10, opacity: 0.5, marginTop: 2 }}>Expected 2026</div>
           </div>
         </div>
       </div>
@@ -180,97 +125,33 @@ function Hero() {
   )
 }
 
-// ── Experience ─────────────────────────────────────────────────
 function Experience() {
   const experiences = [
-    {
-      company: 'Pharos Solutions',
-      role: 'ML & AI Intern',
-      period: 'Jul–Aug 2024 & Jul–Sep 2025',
-      desc: 'Built OCR pipelines, RAG applications, and prompt engineering. Developed a CV parsing pipeline using Apache Tika and OpenAI models. Delivered Flask/REST demos containerized with Docker.',
-      tags: ['Python', 'OCR', 'RAG', 'Docker', 'Flask'],
-      img: '/photos/pharos-cert.jpeg',
-    },
-    {
-      company: 'BrightSkies',
-      role: 'BrightDrive Intern',
-      period: 'Jul–Sep 2025',
-      desc: 'Competed in Kaggle house pricing challenge. Built CNN on Fashion-MNIST. Developed real-time computer vision system for driver safety — drowsiness & distraction detection.',
-      tags: ['Computer Vision', 'CNN', 'Kaggle', 'Deep Learning'],
-      img: '/photos/brightskies.jpeg',
-    },
-    {
-      company: 'DEPI',
-      role: 'ML & AI Trainee → DevOps Trainee',
-      period: 'Apr 2024 – Oct 2025',
-      desc: 'Built BERT classifier for disaster-tweet categorization. Gained hands-on experience in CI/CD pipelines, Docker, Kubernetes, Ansible, Prometheus monitoring.',
-      tags: ['BERT', 'NLP', 'CI/CD', 'Kubernetes', 'Ansible'],
-      img: '/photos/cert-brightengine.jpeg',
-    },
-    {
-      company: 'NTI',
-      role: 'AI Trainee',
-      period: 'Sep 2024',
-      desc: 'Developed CNN for digit classification and PCA visualizations. Studied ML/DL applications including fraud detection and chatbots. Preprocessed data via outlier detection, SMOTE.',
-      tags: ['CNN', 'PCA', 'SMOTE', 'Fraud Detection'],
-      img: null,
-    },
-    {
-      company: 'Mentorness',
-      role: 'Data Analyst Intern',
-      period: 'Jun–Jul 2024',
-      desc: 'Authored SQL queries on multi-million-row datasets. Built interactive Power BI dashboards. Cleaned and imputed data to deliver actionable business insights.',
-      tags: ['SQL', 'Power BI', 'Data Analysis'],
-      img: null,
-    },
+    { company: 'Pharos Solutions', role: 'ML & AI Intern', period: 'Jul–Aug 2024 & Jul–Sep 2025', desc: 'Built OCR pipelines, RAG applications, and prompt engineering. Developed a CV parsing pipeline using Apache Tika and OpenAI models. Delivered Flask/REST demos containerized with Docker.', tags: ['Python','OCR','RAG','Docker','Flask'] },
+    { company: 'BrightSkies', role: 'BrightDrive Intern', period: 'Jul–Sep 2025', desc: 'Competed in Kaggle house pricing challenge. Built CNN on Fashion-MNIST. Developed real-time computer vision system for driver safety.', tags: ['Computer Vision','CNN','Kaggle','Deep Learning'] },
+    { company: 'DEPI', role: 'ML & AI Trainee → DevOps Trainee', period: 'Apr 2024 – Oct 2025', desc: 'Built BERT classifier for disaster-tweet categorization. CI/CD pipelines, Docker, Kubernetes, Ansible, Prometheus monitoring.', tags: ['BERT','NLP','CI/CD','Kubernetes','Ansible'] },
+    { company: 'NTI', role: 'AI Trainee', period: 'Sep 2024', desc: 'Developed CNN for digit classification and PCA visualizations. Preprocessed data via outlier detection, SMOTE.', tags: ['CNN','PCA','SMOTE','Fraud Detection'] },
+    { company: 'Mentorness', role: 'Data Analyst Intern', period: 'Jun–Jul 2024', desc: 'SQL queries on multi-million-row datasets. Built interactive Power BI dashboards delivering actionable insights.', tags: ['SQL','Power BI','Data Analysis'] },
   ]
-
   return (
-    <section id="experience" style={{ padding: '100px 40px', background: '#0D0D0D' }}>
+    <section id="experience" style={{ padding: '80px 24px', background: '#0D0D0D' }}>
       <div style={{ maxWidth: 1200, margin: '0 auto' }}>
         <div className="section-animate">
           <div className="tag" style={{ marginBottom: 16, borderColor: 'rgba(201,168,76,0.5)', color: '#C9A84C' }}>Experience</div>
-          <h2 style={{
-            fontFamily: "'Playfair Display', serif", fontSize: 'clamp(36px, 4vw, 52px)',
-            color: '#F5F0E8', fontWeight: 700, marginBottom: 60,
-          }}>
-            Where I've Worked
-          </h2>
+          <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(30px, 4vw, 52px)', color: '#F5F0E8', fontWeight: 700, marginBottom: 48 }}>Where I&apos;ve Worked</h2>
         </div>
-
         <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
           {experiences.map((exp, i) => (
-            <div key={i} className="section-animate" style={{
-              display: 'grid', gridTemplateColumns: '1fr 3fr',
-              gap: 40, padding: '32px 0', borderBottom: '1px solid rgba(255,255,255,0.06)',
-              transition: 'all 0.3s ease', cursor: 'default',
-            }}
-              onMouseEnter={e => e.currentTarget.style.background = 'rgba(201,168,76,0.04)'}
-              onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
-            >
-              <div style={{ paddingTop: 4 }}>
-                <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 20, color: '#F5F0E8', fontWeight: 600 }}>
-                  {exp.company}
-                </div>
-                <div style={{ fontFamily: "'JetBrains Mono'", fontSize: 11, color: '#C9A84C', marginTop: 6, letterSpacing: '0.06em' }}>
-                  {exp.period}
-                </div>
+            <div key={i} className="section-animate exp-row" style={{ padding: '28px 0', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+              <div>
+                <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 18, color: '#F5F0E8', fontWeight: 600 }}>{exp.company}</div>
+                <div style={{ fontFamily: "'JetBrains Mono'", fontSize: 10, color: '#C9A84C', marginTop: 4, letterSpacing: '0.06em' }}>{exp.period}</div>
               </div>
               <div>
-                <div style={{ fontFamily: "'DM Sans'", fontSize: 16, color: '#F5F0E8', fontWeight: 500, marginBottom: 8 }}>
-                  {exp.role}
-                </div>
-                <p style={{ fontSize: 14, color: 'rgba(245,240,232,0.55)', lineHeight: 1.7, marginBottom: 16 }}>
-                  {exp.desc}
-                </p>
-                <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-                  {exp.tags.map(t => (
-                    <span key={t} style={{
-                      fontFamily: "'JetBrains Mono'", fontSize: 10, padding: '3px 8px',
-                      border: '1px solid rgba(201,168,76,0.25)', color: 'rgba(201,168,76,0.7)',
-                      borderRadius: 2, letterSpacing: '0.05em',
-                    }}>{t}</span>
-                  ))}
+                <div style={{ fontFamily: "'DM Sans'", fontSize: 15, color: '#F5F0E8', fontWeight: 500, marginBottom: 8 }}>{exp.role}</div>
+                <p style={{ fontSize: 13, color: 'rgba(245,240,232,0.55)', lineHeight: 1.7, marginBottom: 12 }}>{exp.desc}</p>
+                <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+                  {exp.tags.map(t => <span key={t} style={{ fontFamily: "'JetBrains Mono'", fontSize: 10, padding: '3px 8px', border: '1px solid rgba(201,168,76,0.25)', color: 'rgba(201,168,76,0.7)', borderRadius: 2 }}>{t}</span>)}
                 </div>
               </div>
             </div>
@@ -281,101 +162,34 @@ function Experience() {
   )
 }
 
-// ── Projects ───────────────────────────────────────────────────
 function Projects() {
   const projects = [
-    {
-      title: 'Driver Safety System',
-      desc: 'Real-time computer vision system detecting drowsiness and driver distractions using OpenCV and deep learning.',
-      tags: ['OpenCV', 'Python', 'Computer Vision', 'Deep Learning'],
-      github: 'https://github.com/Rawan-Mohamed-Farouk',
-    },
-    {
-      title: 'Face Recognition System',
-      desc: 'PCA+LDA dimensionality reduction combined with K-NN classifier achieving 92% accuracy on facial recognition.',
-      tags: ['PCA', 'LDA', 'K-NN', 'scikit-learn'],
-      github: 'https://github.com/Rawan-Mohamed-Farouk',
-    },
-    {
-      title: 'CV Parsing Pipeline',
-      desc: 'Extracts and structures candidate data from CVs into JSON using Apache Tika, OpenAI models, and NLP techniques.',
-      tags: ['Apache Tika', 'OpenAI', 'NLP', 'Python'],
-      github: 'https://github.com/Rawan-Mohamed-Farouk',
-    },
-    {
-      title: 'BERT Disaster Tweet Classifier',
-      desc: 'Fine-tuned BERT model for classifying disaster-related tweets. Automated data-processing pipelines.',
-      tags: ['BERT', 'NLP', 'PyTorch', 'Transformers'],
-      github: 'https://github.com/Rawan-Mohamed-Farouk',
-    },
-    {
-      title: 'CNN on Fashion-MNIST',
-      desc: 'Built CNN from scratch on Fashion-MNIST dataset for clothing classification, optimizing architecture and hyperparameters.',
-      tags: ['PyTorch', 'CNN', 'Deep Learning'],
-      github: 'https://github.com/Rawan-Mohamed-Farouk',
-    },
-    {
-      title: 'Revenue Prediction API',
-      desc: 'RFM + PCA feature engineering with K-NN regressor, deployed as a Flask REST API. Achieved MAPE improvement.',
-      tags: ['Flask', 'K-NN', 'PCA', 'REST API'],
-      github: 'https://github.com/Rawan-Mohamed-Farouk',
-    },
-    {
-      title: 'Car Store Website',
-      desc: 'Full-stack web app with React frontend, MySQL backend, and JWT authentication for a car dealership.',
-      tags: ['React', 'MySQL', 'JWT', 'Node.js'],
-      github: 'https://github.com/Rawan-Mohamed-Farouk',
-    },
-    {
-      title: 'Hotel Reservation System',
-      desc: 'Java MVC application for managing hotel bookings with a full reservation and room management workflow.',
-      tags: ['Java', 'MVC', 'OOP'],
-      github: 'https://github.com/Rawan-Mohamed-Farouk',
-    },
+    { title: 'Driver Safety System', desc: 'Real-time CV system detecting drowsiness and driver distractions using OpenCV and deep learning.', tags: ['OpenCV','Python','Computer Vision'] },
+    { title: 'Face Recognition System', desc: 'PCA+LDA reduction with K-NN classifier achieving 92% accuracy on facial recognition.', tags: ['PCA','LDA','K-NN'] },
+    { title: 'CV Parsing Pipeline', desc: 'Extracts and structures candidate data into JSON using Apache Tika and OpenAI models.', tags: ['Apache Tika','OpenAI','NLP'] },
+    { title: 'BERT Disaster Tweets', desc: 'Fine-tuned BERT for classifying disaster-related tweets with automated data pipelines.', tags: ['BERT','PyTorch','NLP'] },
+    { title: 'CNN on Fashion-MNIST', desc: 'Built CNN from scratch on Fashion-MNIST, optimizing architecture and hyperparameters.', tags: ['PyTorch','CNN','Deep Learning'] },
+    { title: 'Revenue Prediction API', desc: 'RFM + PCA feature engineering with K-NN regressor, deployed as a Flask REST API.', tags: ['Flask','K-NN','PCA'] },
+    { title: 'Car Store Website', desc: 'Full-stack app with React frontend, MySQL backend, and JWT authentication.', tags: ['React','MySQL','JWT'] },
+    { title: 'Hotel Reservation System', desc: 'Java MVC application for managing hotel bookings and room management.', tags: ['Java','MVC','OOP'] },
   ]
-
   return (
-    <section id="projects" style={{ padding: '100px 40px' }}>
+    <section id="projects" style={{ padding: '80px 24px' }}>
       <div style={{ maxWidth: 1200, margin: '0 auto' }}>
-        <div className="section-animate" style={{ marginBottom: 60 }}>
+        <div className="section-animate" style={{ marginBottom: 48 }}>
           <div className="tag" style={{ marginBottom: 16 }}>Projects</div>
-          <h2 style={{
-            fontFamily: "'Playfair Display', serif", fontSize: 'clamp(36px, 4vw, 52px)',
-            fontWeight: 700,
-          }}>
-            Things I've Built
-          </h2>
+          <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(30px, 4vw, 52px)', fontWeight: 700 }}>Things I&apos;ve Built</h2>
         </div>
-
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: 24 }}>
+        <div className="projects-grid">
           {projects.map((p, i) => (
-            <div key={i} className="section-animate" style={{
-              border: '1px solid rgba(0,0,0,0.08)', borderRadius: 4,
-              padding: '28px 24px',
-              transition: 'all 0.3s ease',
-              background: 'rgba(255,255,255,0.5)',
-              backdropFilter: 'blur(4px)',
-            }}
-              onMouseEnter={e => {
-                e.currentTarget.style.borderColor = '#C9A84C'
-                e.currentTarget.style.transform = 'translateY(-4px)'
-                e.currentTarget.style.boxShadow = '0 16px 40px rgba(0,0,0,0.1)'
-              }}
-              onMouseLeave={e => {
-                e.currentTarget.style.borderColor = 'rgba(0,0,0,0.08)'
-                e.currentTarget.style.transform = 'translateY(0)'
-                e.currentTarget.style.boxShadow = 'none'
-              }}
-            >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12 }}>
-                <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 18, fontWeight: 600 }}>{p.title}</h3>
-                <a href={p.github} target="_blank" rel="noreferrer" style={{ color: '#C9A84C', textDecoration: 'none', fontSize: 20, marginLeft: 12 }}>↗</a>
+            <div key={i} className="section-animate project-card" style={{ border: '1px solid rgba(0,0,0,0.08)', borderRadius: 4, padding: '24px 20px', background: 'rgba(255,255,255,0.5)', transition: 'all 0.3s ease' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 10 }}>
+                <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 17, fontWeight: 600 }}>{p.title}</h3>
+                <a href="https://github.com/Rawan-Mohamed-Farouk" target="_blank" rel="noreferrer" style={{ color: '#C9A84C', textDecoration: 'none', fontSize: 18, marginLeft: 8 }}>↗</a>
               </div>
-              <p style={{ fontSize: 13, lineHeight: 1.7, color: '#6B7280', marginBottom: 16 }}>{p.desc}</p>
+              <p style={{ fontSize: 13, lineHeight: 1.7, color: '#6B7280', marginBottom: 14 }}>{p.desc}</p>
               <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-                {p.tags.map(t => (
-                  <span key={t} className="tag" style={{ fontSize: 10 }}>{t}</span>
-                ))}
+                {p.tags.map(t => <span key={t} className="tag" style={{ fontSize: 10 }}>{t}</span>)}
               </div>
             </div>
           ))}
@@ -385,33 +199,27 @@ function Projects() {
   )
 }
 
-// ── Skills ─────────────────────────────────────────────────────
 function Skills() {
   const cats = [
-    { label: 'AI / ML', items: ['PyTorch', 'scikit-learn', 'BERT', 'CNNs', 'PCA', 'SMOTE', 'RAG', 'Prompt Engineering'] },
-    { label: 'Computer Vision', items: ['OpenCV', 'scikit-fuzzy', 'CNN Architectures', 'Real-time Detection'] },
-    { label: 'Data & Analytics', items: ['SQL', 'Power BI', 'Data Cleaning', 'Pandas', 'Matplotlib'] },
-    { label: 'Engineering', items: ['Python', 'Java', 'JavaScript', 'React', 'Flask', 'REST APIs', 'Docker', 'Kubernetes'] },
-    { label: 'DevOps / Cloud', items: ['Docker', 'Kubernetes', 'Ansible', 'CI/CD', 'Prometheus', 'Apache Tika'] },
-    { label: 'Languages', items: ['Arabic (Native)', 'English (Fluent)', 'Turkish (Fluent)'] },
+    { label: 'AI / ML', items: ['PyTorch','scikit-learn','BERT','CNNs','PCA','SMOTE','RAG','Prompt Engineering'] },
+    { label: 'Computer Vision', items: ['OpenCV','scikit-fuzzy','CNN Architectures','Real-time Detection'] },
+    { label: 'Data & Analytics', items: ['SQL','Power BI','Data Cleaning','Pandas','Matplotlib'] },
+    { label: 'Engineering', items: ['Python','Java','JavaScript','React','Flask','REST APIs'] },
+    { label: 'DevOps / Cloud', items: ['Docker','Kubernetes','Ansible','CI/CD','Prometheus'] },
+    { label: 'Languages', items: ['Arabic (Native)','English (Fluent)','Turkish (Fluent)'] },
   ]
-
   return (
-    <section style={{ padding: '80px 40px', background: '#F0EBE0' }}>
+    <section style={{ padding: '80px 24px', background: '#F0EBE0' }}>
       <div style={{ maxWidth: 1200, margin: '0 auto' }}>
-        <div className="section-animate" style={{ marginBottom: 50 }}>
+        <div className="section-animate" style={{ marginBottom: 48 }}>
           <div className="tag" style={{ marginBottom: 16 }}>Toolkit</div>
-          <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(32px, 4vw, 44px)', fontWeight: 700 }}>
-            Skills & Technologies
-          </h2>
+          <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(30px, 4vw, 44px)', fontWeight: 700 }}>Skills & Technologies</h2>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 32 }}>
+        <div className="skills-grid">
           {cats.map((cat) => (
             <div key={cat.label} className="section-animate">
-              <div style={{ fontFamily: "'JetBrains Mono'", fontSize: 11, color: '#C9A84C', letterSpacing: '0.1em', marginBottom: 12 }}>
-                {cat.label.toUpperCase()}
-              </div>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+              <div style={{ fontFamily: "'JetBrains Mono'", fontSize: 10, color: '#C9A84C', letterSpacing: '0.1em', marginBottom: 10 }}>{cat.label.toUpperCase()}</div>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 7 }}>
                 {cat.items.map(s => <span key={s} className="skill-pill">{s}</span>)}
               </div>
             </div>
@@ -422,50 +230,28 @@ function Skills() {
   )
 }
 
-// ── Gallery ────────────────────────────────────────────────────
 function Gallery() {
   const photos = [
-    { src: '/photos/arab-league-podium.jpeg', caption: 'Speaking at Orientation day at ANU ', span: 1 },
-    { src: '/photos/arab-league-hall.jpeg', caption: 'Arab League Main Hall', span: 1 },
-    { src: '/photos/speaking-is.jpeg', caption: 'Presenting at Alexandria National University', span: 1 },
-    { src: '/photos/cert-brightengine.jpeg', caption: 'BrightEngine Certificate of Completion', span: 1 },
-    { src: '/photos/group.jpeg', caption: 'ACFC Community Event', span: 1 },
-    { src: '/photos/pharos-cert.jpeg', caption: 'Pharos Solutions — AI Team Internship', span: 1 },
+    { src: '/photos/arab-league-podium.jpeg', caption: 'Speaking at Orientation day at ANU' },
+    { src: '/photos/arab-league-hall.jpeg', caption: 'Arab League Main Hall' },
+    { src: '/photos/speaking-is.jpeg', caption: 'Presenting at Alexandria National University' },
+    { src: '/photos/cert-brightengine.jpeg', caption: 'BrightEngine Certificate' },
+    { src: '/photos/group.jpeg', caption: 'ACFC Community Event' },
+    { src: '/photos/pharos-cert.jpeg', caption: 'Pharos Solutions — AI Team' },
   ]
-
   return (
-    <section id="gallery" style={{ padding: '100px 40px', background: '#0D0D0D' }}>
+    <section id="gallery" style={{ padding: '80px 24px', background: '#0D0D0D' }}>
       <div style={{ maxWidth: 1200, margin: '0 auto' }}>
-        <div className="section-animate" style={{ marginBottom: 60 }}>
+        <div className="section-animate" style={{ marginBottom: 48 }}>
           <div className="tag" style={{ marginBottom: 16, borderColor: 'rgba(201,168,76,0.5)', color: '#C9A84C' }}>Gallery</div>
-          <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(36px, 4vw, 52px)', color: '#F5F0E8', fontWeight: 700 }}>
-            Moments & Milestones
-          </h2>
+          <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(30px, 4vw, 52px)', color: '#F5F0E8', fontWeight: 700 }}>Moments & Milestones</h2>
         </div>
-
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12 }}>
+        <div className="gallery-grid">
           {photos.map((p, i) => (
-            <div key={i} className="photo-hover section-animate" style={{
-              gridColumn: `span ${p.span}`,
-              borderRadius: 4, overflow: 'hidden',
-              height: p.span === 2 ? 280 : 220,
-              position: 'relative', cursor: 'pointer',
-            }}>
+            <div key={i} className="photo-hover section-animate gallery-item" style={{ borderRadius: 4, overflow: 'hidden', position: 'relative' }}>
               <Image src={p.src} alt={p.caption} fill style={{ objectFit: 'cover' }} />
-              <div style={{
-                position: 'absolute', inset: 0,
-                background: 'linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%)',
-                opacity: 0, transition: 'opacity 0.3s ease',
-              }}
-                onMouseEnter={e => e.currentTarget.style.opacity = 1}
-                onMouseLeave={e => e.currentTarget.style.opacity = 0}
-              >
-                <div style={{
-                  position: 'absolute', bottom: 0, left: 0, right: 0, padding: '16px 16px',
-                  fontFamily: "'DM Sans'", fontSize: 13, color: '#F5F0E8', letterSpacing: '0.02em',
-                }}>
-                  {p.caption}
-                </div>
+              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%)' }}>
+                <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '12px 14px', fontFamily: "'DM Sans'", fontSize: 12, color: '#F5F0E8' }}>{p.caption}</div>
               </div>
             </div>
           ))}
@@ -475,46 +261,33 @@ function Gallery() {
   )
 }
 
-// ── Leadership ─────────────────────────────────────────────────
 function Leadership() {
   return (
-    <section style={{ padding: '80px 40px' }}>
-      <div style={{ maxWidth: 1200, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 60, alignItems: 'center' }}>
-        <div className="section-animate">
-          <div className="tag" style={{ marginBottom: 16 }}>Leadership</div>
-          <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(32px, 4vw, 44px)', fontWeight: 700, marginBottom: 24 }}>
-            Building Communities
-          </h2>
-          <div style={{ borderLeft: '2px solid #C9A84C', paddingLeft: 24, marginBottom: 32 }}>
-            <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 20, fontWeight: 600 }}>Head — Pivots Community</div>
-            <div style={{ fontFamily: "'JetBrains Mono'", fontSize: 11, color: '#C9A84C', margin: '6px 0', letterSpacing: '0.08em' }}>DEC 2023 – PRESENT</div>
-            <p style={{ fontSize: 14, lineHeight: 1.7, color: '#6B7280' }}>
-              Scaled AI club to 200+ members. Organized 10 hackathons and guest lectures.
-              Creating a vibrant ecosystem for students to explore AI, machine learning, and technology.
-            </p>
+    <section style={{ padding: '80px 24px' }}>
+      <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+        <div className="leadership-grid">
+          <div className="section-animate">
+            <div className="tag" style={{ marginBottom: 16 }}>Leadership</div>
+            <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(30px, 4vw, 44px)', fontWeight: 700, marginBottom: 24 }}>Building Communities</h2>
+            <div style={{ borderLeft: '2px solid #C9A84C', paddingLeft: 20, marginBottom: 28 }}>
+              <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 18, fontWeight: 600 }}>Head — Pivots Community</div>
+              <div style={{ fontFamily: "'JetBrains Mono'", fontSize: 10, color: '#C9A84C', margin: '5px 0', letterSpacing: '0.08em' }}>DEC 2023 – PRESENT</div>
+              <p style={{ fontSize: 13, lineHeight: 1.7, color: '#6B7280' }}>Scaled AI club to 200+ members. Organized 10 hackathons and guest lectures.</p>
+            </div>
+            <div style={{ borderLeft: '2px solid rgba(201,168,76,0.3)', paddingLeft: 20 }}>
+              <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 18, fontWeight: 600 }}>Volunteer — Safwa Community</div>
+              <div style={{ fontFamily: "'JetBrains Mono'", fontSize: 10, color: '#C9A84C', margin: '5px 0', letterSpacing: '0.08em' }}>JAN 2020 – OCT 2023</div>
+              <p style={{ fontSize: 13, lineHeight: 1.7, color: '#6B7280' }}>Led HR & PR teams. Coordinated 15 events serving 500+ participants.</p>
+            </div>
           </div>
-          <div style={{ borderLeft: '2px solid rgba(201,168,76,0.3)', paddingLeft: 24 }}>
-            <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 20, fontWeight: 600 }}>Volunteer — Safwa Community</div>
-            <div style={{ fontFamily: "'JetBrains Mono'", fontSize: 11, color: '#C9A84C', margin: '6px 0', letterSpacing: '0.08em' }}>JAN 2020 – OCT 2023</div>
-            <p style={{ fontSize: 14, lineHeight: 1.7, color: '#6B7280' }}>
-              Led HR & PR teams. Coordinated 15 events serving 500+ participants.
-              Developed strong skills in event management and cross-functional team leadership.
-            </p>
-          </div>
-        </div>
-        <div className="section-animate" style={{ position: 'relative', height: 420 }}>
-          <div className="photo-hover" style={{
-            position: 'absolute', top: 0, right: 0, width: '75%', height: 320,
-            borderRadius: 4, overflow: 'hidden', boxShadow: '0 24px 64px rgba(0,0,0,0.12)',
-          }}>
-            <Image src="/photos/group.jpeg" alt="Community event" fill style={{ objectFit: 'cover' }} />
-          </div>
-          <div style={{
-            position: 'absolute', bottom: 0, left: 0,
-            background: '#0D0D0D', padding: '20px 24px', borderRadius: 4, width: 200,
-          }}>
-            <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 36, color: '#C9A84C', fontWeight: 700 }}>200+</div>
-            <div style={{ fontFamily: "'DM Sans'", fontSize: 12, color: 'rgba(245,240,232,0.6)', marginTop: 4 }}>AI Club Members</div>
+          <div className="section-animate leadership-photo-wrap">
+            <div className="photo-hover" style={{ position: 'relative', width: '100%', height: 300, borderRadius: 4, overflow: 'hidden', boxShadow: '0 24px 64px rgba(0,0,0,0.12)' }}>
+              <Image src="/photos/group.jpeg" alt="Community event" fill style={{ objectFit: 'cover' }} />
+            </div>
+            <div style={{ background: '#0D0D0D', padding: '16px 20px', borderRadius: 4, marginTop: 16, display: 'inline-block' }}>
+              <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 32, color: '#C9A84C', fontWeight: 700 }}>200+</div>
+              <div style={{ fontFamily: "'DM Sans'", fontSize: 12, color: 'rgba(245,240,232,0.6)', marginTop: 2 }}>AI Club Members</div>
+            </div>
           </div>
         </div>
       </div>
@@ -522,27 +295,19 @@ function Leadership() {
   )
 }
 
-// ── Contact ────────────────────────────────────────────────────
 function Contact() {
   return (
-    <section id="contact" style={{ padding: '100px 40px', background: '#0D0D0D' }}>
+    <section id="contact" style={{ padding: '80px 24px', background: '#0D0D0D' }}>
       <div style={{ maxWidth: 700, margin: '0 auto', textAlign: 'center' }}>
         <div className="section-animate">
           <div className="tag" style={{ marginBottom: 20, borderColor: 'rgba(201,168,76,0.5)', color: '#C9A84C' }}>Contact</div>
-          <h2 style={{
-            fontFamily: "'Playfair Display', serif",
-            fontSize: 'clamp(40px, 6vw, 64px)',
-            color: '#F5F0E8', fontWeight: 700, lineHeight: 1.1,
-            marginBottom: 20,
-          }}>
-            Let's Work<br /><em style={{ color: '#C9A84C', fontStyle: 'italic' }}>Together</em>
+          <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(36px, 6vw, 64px)', color: '#F5F0E8', fontWeight: 700, lineHeight: 1.1, marginBottom: 16 }}>
+            Let&apos;s Work<br /><em style={{ color: '#C9A84C', fontStyle: 'italic' }}>Together</em>
           </h2>
-          <p style={{ color: 'rgba(245,240,232,0.5)', fontSize: 16, lineHeight: 1.8, marginBottom: 48 }}>
-            I'm open to internships, collaborations, and exciting AI/ML opportunities.
-            Currently based in Alexandria, Egypt.
+          <p style={{ color: 'rgba(245,240,232,0.5)', fontSize: 15, lineHeight: 1.8, marginBottom: 40 }}>
+            Open to internships, collaborations, and AI/ML opportunities. Based in Alexandria, Egypt.
           </p>
-
-          <div style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}>
+          <div className="contact-grid">
             {[
               { label: 'Email', href: 'mailto:rawanmohamedf@gmail.com', value: 'rawanmohamedf@gmail.com' },
               { label: 'LinkedIn', href: 'https://www.linkedin.com/in/rawan-mohamed', value: 'rawan-mohamed' },
@@ -551,15 +316,14 @@ function Contact() {
             ].map(c => (
               <a key={c.label} href={c.href} target="_blank" rel="noreferrer" style={{
                 display: 'flex', flexDirection: 'column', alignItems: 'center',
-                padding: '20px 28px', border: '1px solid rgba(201,168,76,0.2)',
-                borderRadius: 4, textDecoration: 'none',
-                transition: 'all 0.3s ease', minWidth: 140,
+                padding: '18px 16px', border: '1px solid rgba(201,168,76,0.2)',
+                borderRadius: 4, textDecoration: 'none', transition: 'all 0.3s ease',
               }}
                 onMouseEnter={e => { e.currentTarget.style.borderColor = '#C9A84C'; e.currentTarget.style.background = 'rgba(201,168,76,0.08)' }}
                 onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(201,168,76,0.2)'; e.currentTarget.style.background = 'transparent' }}
               >
-                <span style={{ fontFamily: "'JetBrains Mono'", fontSize: 10, color: '#C9A84C', letterSpacing: '0.1em', marginBottom: 6 }}>{c.label}</span>
-                <span style={{ fontFamily: "'DM Sans'", fontSize: 12, color: 'rgba(245,240,232,0.7)' }}>{c.value}</span>
+                <span style={{ fontFamily: "'JetBrains Mono'", fontSize: 10, color: '#C9A84C', letterSpacing: '0.1em', marginBottom: 5 }}>{c.label}</span>
+                <span style={{ fontFamily: "'DM Sans'", fontSize: 12, color: 'rgba(245,240,232,0.7)', wordBreak: 'break-all', textAlign: 'center' }}>{c.value}</span>
               </a>
             ))}
           </div>
@@ -569,34 +333,25 @@ function Contact() {
   )
 }
 
-// ── Footer ─────────────────────────────────────────────────────
 function Footer() {
   return (
-    <footer style={{
-      padding: '24px 40px', borderTop: '1px solid rgba(0,0,0,0.08)',
-      display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-    }}>
+    <footer style={{ padding: '20px 24px', borderTop: '1px solid rgba(0,0,0,0.08)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <span style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700, fontSize: 16 }}>RF</span>
-      <span style={{ fontFamily: "'JetBrains Mono'", fontSize: 10, color: '#6B7280', letterSpacing: '0.1em' }}>
-        © 2026 RAWAN FAROUK
-      </span>
+      <span style={{ fontFamily: "'JetBrains Mono'", fontSize: 10, color: '#6B7280', letterSpacing: '0.1em' }}>© 2026 RAWAN FAROUK</span>
     </footer>
   )
 }
 
-// ── Main ───────────────────────────────────────────────────────
 export default function Home() {
   useReveal()
-
   return (
     <>
       <Head>
         <title>Rawan Mohamed Farouk — AI/ML Engineer</title>
-        <meta name="description" content="Portfolio of Rawan Mohamed Farouk — Computer Science student specializing in AI and Machine Learning at Alexandria National University." />
+        <meta name="description" content="Portfolio of Rawan Mohamed Farouk — AI and Machine Learning Engineer." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>R</text></svg>" />
       </Head>
-
       <div className="grain" />
       <Nav />
       <main>
@@ -609,10 +364,44 @@ export default function Home() {
         <Contact />
       </main>
       <Footer />
-
       <style>{`
-        @media (max-width: 768px) {
-          .hidden-mobile { display: none !important; }
+        .nav-links { display: flex; gap: 28px; }
+        .hire-btn  { display: inline-block; }
+        .hamburger { display: none; }
+        .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .hero-photos { display: block; }
+        .stats-row { display: flex; gap: 32px; flex-wrap: wrap; }
+        .exp-row { display: grid; grid-template-columns: 180px 1fr; gap: 32px; }
+        .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .project-card:hover { border-color: #C9A84C !important; transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.1); }
+        .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+        .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+        .gallery-item { height: 220px; }
+        .leadership-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+        .leadership-photo-wrap { display: block; }
+        .contact-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+
+        @media (max-width: 900px) {
+          .projects-grid { grid-template-columns: repeat(2, 1fr); }
+          .skills-grid   { grid-template-columns: repeat(2, 1fr); }
+          .contact-grid  { grid-template-columns: repeat(2, 1fr); }
+          .leadership-grid { grid-template-columns: 1fr; gap: 40px; }
+        }
+
+        @media (max-width: 640px) {
+          .nav-links { display: none; }
+          .hire-btn  { display: none; }
+          .hamburger { display: flex; }
+          .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+          .hero-photos { height: 280px; }
+          .stats-row { gap: 20px; }
+          .exp-row { grid-template-columns: 1fr; gap: 4px; }
+          .projects-grid { grid-template-columns: 1fr; }
+          .skills-grid { grid-template-columns: 1fr; gap: 24px; }
+          .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+          .gallery-item { height: 160px; }
+          .contact-grid { grid-template-columns: repeat(2, 1fr); }
+          .leadership-photo-wrap { display: none; }
         }
       `}</style>
     </>
