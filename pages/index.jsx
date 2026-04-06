@@ -96,7 +96,7 @@ function Hero() {
           </p>
           <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
             <a href="#experience" style={{ background: '#0D0D0D', color: '#F5F0E8', padding: '12px 24px', textDecoration: 'none', fontFamily: "'DM Sans'", fontSize: 13, letterSpacing: '0.06em', textTransform: 'uppercase', borderRadius: 2 }}>View Work</a>
-            <a href="https://www.linkedin.com/in/rawan-mohamed" target="_blank" rel="noreferrer" style={{ border: '1px solid #0D0D0D', color: '#0D0D0D', padding: '12px 24px', textDecoration: 'none', fontFamily: "'DM Sans'", fontSize: 13, letterSpacing: '0.06em', textTransform: 'uppercase', borderRadius: 2 }}>LinkedIn</a>
+            <a href="https://www.linkedin.com/in/rawan-mohamed-67271225b/" target="_blank" rel="noreferrer" style={{ border: '1px solid #0D0D0D', color: '#0D0D0D', padding: '12px 24px', textDecoration: 'none', fontFamily: "'DM Sans'", fontSize: 13, letterSpacing: '0.06em', textTransform: 'uppercase', borderRadius: 2 }}>LinkedIn</a>
           </div>
           <div className="stats-row" style={{ marginTop: 48, paddingTop: 32, borderTop: '1px solid rgba(0,0,0,0.08)' }}>
             {[['3.3','GPA'],['4+','Internships'],['10+','Projects'],['200+','Club Members']].map(([n,l]) => (
