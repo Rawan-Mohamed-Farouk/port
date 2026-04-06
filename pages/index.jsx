@@ -310,7 +310,7 @@ function Contact() {
           <div className="contact-grid">
             {[
               { label: 'Email', href: 'mailto:rawanmohamedf@gmail.com', value: 'rawanmohamedf@gmail.com' },
-              { label: 'LinkedIn', href: 'https://www.linkedin.com/in/rawan-mohamed', value: 'rawan-mohamed' },
+              { label: 'LinkedIn', href: 'https://www.linkedin.com/in/rawan-mohamed-67271225b/', value: 'rawan-mohamed' },
               { label: 'GitHub', href: 'https://github.com/Rawan-Mohamed-Farouk', value: 'GitHub' },
               { label: 'Phone', href: 'tel:+201091221840', value: '+20 109 122 1840' },
             ].map(c => (
