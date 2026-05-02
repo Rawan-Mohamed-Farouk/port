@@ -272,21 +272,20 @@ function Leadership() {
             <div style={{ borderLeft: '2px solid #C9A84C', paddingLeft: 20, marginBottom: 28 }}>
               <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 18, fontWeight: 600 }}>Head — Pivots Community</div>
               <div style={{ fontFamily: "'JetBrains Mono'", fontSize: 10, color: '#C9A84C', margin: '5px 0', letterSpacing: '0.08em' }}>DEC 2023 – PRESENT</div>
-              <p style={{ fontSize: 13, lineHeight: 1.7, color: '#6B7280' }}>Scaled AI club to 200+ members. Organized 10 hackathons and guest lectures.</p>
+              <p style={{ fontSize: 13, lineHeight: 1.7, color: '#6B7280' }}>Scaled Pivots to 200+ members. Organized 10+ events and guest lectures.</p>
             </div>
             <div style={{ borderLeft: '2px solid rgba(201,168,76,0.3)', paddingLeft: 20 }}>
               <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 18, fontWeight: 600 }}>Volunteer — Safwa Community</div>
-              <div style={{ fontFamily: "'JetBrains Mono'", fontSize: 10, color: '#C9A84C', margin: '5px 0', letterSpacing: '0.08em' }}>JAN 2020 – OCT 2023</div>
+              <div style={{ fontFamily: "'JetBrains Mono'", fontSize: 10, color: '#C9A84C', margin: '5px 0', letterSpacing: '0.08em' }}>JAN 2021 – OCT 2023</div>
               <p style={{ fontSize: 13, lineHeight: 1.7, color: '#6B7280' }}>Led HR & PR teams. Coordinated 15 events serving 500+ participants.</p>
             </div>
           </div>
           <div className="section-animate leadership-photo-wrap">
             <div className="photo-hover" style={{ position: 'relative', width: '100%', height: 300, borderRadius: 4, overflow: 'hidden', boxShadow: '0 24px 64px rgba(0,0,0,0.12)' }}>
-              <Image src="/photos/group.jpeg" alt="Community event" fill style={{ objectFit: 'cover' }} />
+              <Image src="/photos/all.jpeg" alt="Community event" fill style={{ objectFit: 'cover' }} />
             </div>
             <div style={{ background: '#0D0D0D', padding: '16px 20px', borderRadius: 4, marginTop: 16, display: 'inline-block' }}>
               <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 32, color: '#C9A84C', fontWeight: 700 }}>200+</div>
-              <div style={{ fontFamily: "'DM Sans'", fontSize: 12, color: 'rgba(245,240,232,0.6)', marginTop: 2 }}>AI Club Members</div>
             </div>
           </div>
         </div>
