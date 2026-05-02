@@ -238,7 +238,7 @@ function Gallery() {
     { src: 'public/photos/arab', caption: 'Arab League Main Hall' },
     { src: '/photos/group.jpeg', caption: 'ACPC Community Event' },
     { src: 'public/photos/pharos-pic', caption: 'Pharos Solutions' },
-     { src: 'public/photos/Brightskies', caption: 'Brightskies' }
+     { src: 'public/photos/Brightskies.jpeg', caption: 'Brightskies' }
   ]
   return (
     <section id="gallery" style={{ padding: '80px 24px', background: '#0D0D0D' }}>
