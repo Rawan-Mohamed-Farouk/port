@@ -235,7 +235,7 @@ function Gallery() {
     { src: '/photos/arab-league-podium.jpeg', caption: 'Speaking at Orientation day at ANU' },
     { src: '/photos/arab-league-hall.jpeg', caption: 'Arab League Main Hall' },
     { src: '/photos/speaking-is.jpeg', caption: 'Pharos Solutions — AI Team' },
-    { src: '/photos/cert-brightengine.jpeg', caption: 'Arab League Main Hall' },
+    { src: 'public/photos/arab', caption: 'Arab League Main Hall' },
     { src: '/photos/group.jpeg', caption: 'ACPC Community Event' },
     { src: 'public/photos/pharos-pic', caption: 'Pharos Solutions' },
   ]
