@@ -281,7 +281,7 @@ function Leadership() {
             </div>
           </div>
           <div className="section-animate leadership-photo-wrap">
-            <div className="photo-hover" style={{ position: 'relative', width: '100%', height: 300, borderRadius: 4, overflow: 'hidden', boxShadow: '0 24px 64px rgba(0,0,0,0.12)' }}>
+            <div className="photo-hover" style={{ position: 'relative', width: '100%', height: 800, borderRadius: 4, overflow: 'hidden', boxShadow: '0 24px 64px rgba(0,0,0,0.12)' }}>
               <Image src="/photos/all.jpeg" alt="Community event" fill style={{ objectFit: 'cover' }} />
             </div>
             <div style={{ background: '#0D0D0D', padding: '16px 20px', borderRadius: 4, marginTop: 16, display: 'inline-block' }}>
