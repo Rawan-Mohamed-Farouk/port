@@ -237,7 +237,7 @@ function Gallery() {
     { src: '/photos/speaking-is.jpeg', caption: 'Pharos Solutions — AI Team' },
     { src: '/photos/cert-brightengine.jpeg', caption: 'Arab League Main Hall' },
     { src: '/photos/group.jpeg', caption: 'ACPC Community Event' },
-    { src: '/photos/pharos-cert.jpeg', caption: 'Pharos Solutions' },
+    { src: 'public/photos/pharos-pic', caption: 'Pharos Solutions' },
   ]
   return (
     <section id="gallery" style={{ padding: '80px 24px', background: '#0D0D0D' }}>
