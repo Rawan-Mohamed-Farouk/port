@@ -112,7 +112,7 @@ function Hero() {
             <Image src="/public/photos/arab.jpeg" alt="Arab League Hall" fill style={{ objectFit: 'cover' }} />
           </div>
           <div className="photo-hover" style={{ position: 'absolute', bottom: 0, left: 0, width: '55%', height: '55%', borderRadius: 4, overflow: 'hidden', border: '4px solid #F5F0E8', boxShadow: '0 24px 64px rgba(0,0,0,0.15)' }}>
-            <Image src="public/photos/arableague.jpeg" alt="BrightSkies" fill style={{ objectFit: 'cover', objectPosition: 'top' }} />
+            <Image src="/photos/arableague.jpeg" alt="BrightSkies" fill style={{ objectFit: 'cover', objectPosition: 'top' }} />
           </div>
           <div style={{ position: 'absolute', bottom: '18%', right: '4%', background: '#0D0D0D', color: '#F5F0E8', padding: '10px 14px', borderRadius: 4, zIndex: 10 }}>
             <div style={{ fontFamily: "'JetBrains Mono'", fontSize: 9, color: '#C9A84C', letterSpacing: '0.1em' }}>CURRENTLY</div>
@@ -233,12 +233,12 @@ function Skills() {
 function Gallery() {
   const photos = [
     { src: '/photos/arab-league-podium.jpeg', caption: 'Speaking at Orientation day at ANU' },
-    { src: 'public/photos/arab.jpeg', caption: 'Arab League Main Hall' },
+    { src: '/photos/arab.jpeg', caption: 'Arab League Main Hall' },
     { src: '/photos/speaking-is.jpeg', caption: 'Pharos Solutions — AI Team' },
-    { src: 'public/photos/arab.jpeg', caption: 'Arab League Main Hall' },
+    { src: '/photos/arab.jpeg', caption: 'Arab League Main Hall' },
     { src: '/photos/group.jpeg', caption: 'ACPC Community Event' },
-    { src: 'public/photos/pharos.jpeg', caption: 'Pharos Solutions' },
-     { src: 'public/photos/Brightskies.jpeg', caption: 'Brightskies' }
+    { src: '/photos/pharos.jpeg', caption: 'Pharos Solutions' },
+     { src: '/photos/Brightskies.jpeg', caption: 'Brightskies' }
   ]
   return (
     <section id="gallery" style={{ padding: '80px 24px', background: '#0D0D0D' }}>
