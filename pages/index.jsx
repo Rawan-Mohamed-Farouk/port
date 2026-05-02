@@ -236,8 +236,8 @@ function Gallery() {
     { src: '/photos/arab-league-hall.jpeg', caption: 'Arab League Main Hall' },
     { src: '/photos/speaking-is.jpeg', caption: 'Pharos Solutions — AI Team' },
     { src: '/photos/cert-brightengine.jpeg', caption: 'Arab League Main Hall' },
-    { src: '/photos/group.jpeg', caption: 'ACFC Community Event' },
-    { src: '/photos/pharos-cert.jpeg', caption: 'Pharos Solutions Certeficate' },
+    { src: '/photos/group.jpeg', caption: 'ACPC Community Event' },
+    { src: '/photos/pharos-cert.jpeg', caption: 'Pharos Solutions' },
   ]
   return (
     <section id="gallery" style={{ padding: '80px 24px', background: '#0D0D0D' }}>
