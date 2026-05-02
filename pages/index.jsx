@@ -235,10 +235,9 @@ function Gallery() {
     { src: '/photos/arab-league-podium.jpeg', caption: 'Speaking at Orientation day at ANU' },
     { src: '/photos/arab.jpeg', caption: 'Arab League Main Hall' },
     { src: '/photos/speaking-is.jpeg', caption: 'Pharos Solutions — AI Team' },
-    { src: '/photos/arab.jpeg', caption: 'Arab League Main Hall' },
     { src: '/photos/group.jpeg', caption: 'ACPC Community Event' },
     { src: '/photos/pharos.jpeg', caption: 'Pharos Solutions' },
-     { src: '/photos/Brightskies.jpeg', caption: 'Brightskies' }
+     { src: '/photos/BSK.jpeg', caption: 'Brightskies' }
   ]
   return (
     <section id="gallery" style={{ padding: '80px 24px', background: '#0D0D0D' }}>
